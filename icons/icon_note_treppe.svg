@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <rect width="100" height="100" rx="22" fill="#fff"/>
+  <!-- Notenkopf (Ellipse, unten links) -->
+  <ellipse cx="30" cy="76" rx="12" ry="9" transform="rotate(-20,30,76)" fill="#000"/>
+  <!-- Treppe aufsteigend (7 Stufen) von Notenkopf nach oben rechts -->
+  <!-- Jede Stufe: 8px breit, 6px hoch, aufsteigend -->
+  <path d="
+    M 40 70
+    L 40 64 L 48 64
+    L 48 58 L 56 58
+    L 56 52 L 64 52
+    L 64 46 L 72 46
+    L 72 40 L 80 40
+    L 80 34 L 88 34
+    L 88 28
+    L 86 28 L 86 34 L 78 34 L 78 40 L 70 40 L 70 46
+    L 62 46 L 62 52 L 54 52 L 54 58 L 46 58 L 46 64
+    L 38 64 L 38 70 Z
+  " fill="#000"/>
+</svg>
