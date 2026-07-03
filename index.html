@@ -498,60 +498,7 @@
     .hist-success-msg { font-size:0.8rem; color:#2a9547; font-family:var(--font-body);
       padding:0.4rem 0; display:none; }
     .hist-success-msg.visible { display:block; }
-
-    /* ── Onboarding-Modal ─────────────────────────────────────── */
-    #ob-overlay {
-      position:fixed; inset:0; z-index:9000;
-      background:rgba(0,0,0,0.55); backdrop-filter:blur(2px);
-      display:flex; align-items:center; justify-content:center;
-      padding:1.25rem;
-    }
-    #ob-overlay.hidden { display:none; }
-    #ob-box {
-      background:var(--color-surface);
-      border:1px solid var(--color-border);
-      border-radius:14px;
-      max-width:360px; width:100%;
-      padding:1.5rem 1.5rem 1.25rem;
-      box-shadow:0 8px 32px rgba(0,0,0,0.22);
-    }
-    .ob-logo {
-      width:38px; height:38px;
-      background:#E8531A; border-radius:9px;
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom:0.9rem;
-    }
-    .ob-logo svg { width:22px; height:22px; }
-    #ob-box h2 {
-      font-family:var(--font-display); font-size:1.15rem; font-weight:700;
-      margin:0 0 0.2rem; letter-spacing:-0.01em;
-      color:var(--color-text);
-    }
-    #ob-box .ob-sub {
-      font-size:0.8rem; color:var(--color-text-muted);
-      margin:0 0 1.1rem;
-    }
-    .ob-steps { display:flex; flex-direction:column; gap:0.65rem; margin-bottom:1.25rem; }
-    .ob-step { display:flex; gap:0.65rem; align-items:flex-start; }
-    .ob-step-num {
-      flex-shrink:0; width:22px; height:22px;
-      background:#E8531A; color:#fff;
-      border-radius:50%; font-size:0.72rem; font-weight:700;
-      display:flex; align-items:center; justify-content:center;
-      margin-top:0.05rem;
-    }
-    .ob-step-text { font-size:0.82rem; color:var(--color-text); line-height:1.45; }
-    .ob-step-text strong { color:var(--color-text); }
-    #ob-close {
-      width:100%; padding:0.65rem;
-      background:#E8531A; color:#fff;
-      border:none; border-radius:8px;
-      font-family:var(--font-body); font-size:0.88rem; font-weight:600;
-      cursor:pointer; letter-spacing:0.01em;
-      transition:opacity 0.15s;
-    }
-    #ob-close:hover { opacity:0.88; }
-    html.dark #ob-box { background:#1C1B19; border-color:#393836; }
+    
 
     /* ── Quiz-Info-Button ─────────────────────────────────────── */
     #btn-quiz-info {
@@ -1445,37 +1392,6 @@
   </div>
 </div>
 
-<!-- ── Onboarding-Modal (nur beim ersten Start) ───────────── -->
-<div id="ob-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="ob-title">
-  <div id="ob-box">
-    <div class="ob-logo" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="3" width="7" height="7" rx="1.5"/>
-        <rect x="14" y="3" width="7" height="7" rx="1.5"/>
-        <rect x="3" y="14" width="7" height="7" rx="1.5"/>
-        <rect x="14" y="14" width="7" height="7" rx="1.5"/>
-      </svg>
-    </div>
-    <h2 id="ob-title">Tonleitertrainer</h2>
-    <p class="ob-sub">So funktioniert die App &mdash; in 3 Schritten</p>
-    <div class="ob-steps">
-      <div class="ob-step">
-        <span class="ob-step-num">1</span>
-        <span class="ob-step-text"><strong>Tonart w&auml;hlen.</strong> Oben Dur oder Moll, darunter den Modus (z.&thinsp;B. Ionisch, Harmonisch) und die Grundtonart (C, G, F &hellip;) ausw&auml;hlen. Die Matrix zeigt die Stufenzahlen 1&ndash;7.</span>
-      </div>
-      <div class="ob-step">
-        <span class="ob-step-num">2</span>
-        <span class="ob-step-text"><strong>Stufe hervorheben &amp; Takt halten.</strong> Eine Zahl antippen &rarr; alle Felder dieser Stufe leuchten auf. Metronom einschalten und die Stufenzahl <em>vor</em> dem n&auml;chsten Takt innerlich nennen. Cursor-Modus automatisiert das.</span>
-      </div>
-      <div class="ob-step">
-        <span class="ob-step-num">3</span>
-        <span class="ob-step-text"><strong>Quizmodus &rarr; Auswerten.</strong> &bdquo;Quizmodus&ldquo; aktivieren: jedes Feld verbirgt den Ton. Antippen &rarr; Ton erscheint &rarr; sofort &bdquo;&#10003;&ldquo; oder &bdquo;&#10007;&ldquo;. Auswertung &ouml;ffnet Statistik pro Stufe. Langzeit-Auswertung zeigt den Fortschritt &uuml;ber mehrere Sessions.</span>
-      </div>
-    </div>
-    <button id="ob-close">Verstanden &mdash; loslegen</button>
-  </div>
-</div>
-
 <!-- ── Quiz-Info-Modal ──────────────────────────────────────── -->
 <div id="quiz-info-overlay" class="hidden" role="dialog" aria-modal="true" aria-labelledby="qi-title">
   <div id="quiz-info-box">
@@ -2052,8 +1968,8 @@ function renderBadge() {
    AUFDECKMODUS (Feature 1)
 ═══════════════════════════════════════════════════════════ */
 function updateRevealBar() {
-  // Buttons anzeigen sobald eine Tonart gewählt ist (auch wenn forceNumDisplay aktiv)
-  const tonartActive = mode !== 'num' && selectedIdx !== null;
+  // Buttons anzeigen sobald eine Tonart gewählt ist — NICHT erst beim Cell-Tap (verhindert Layout-Shift)
+  const tonartActive = mode !== 'num';
   if (tonartActive) {
     revealBar.style.display = 'flex';
     btnRevealToggle.style.background = revealMode ? 'var(--color-text)' : '';
@@ -2394,34 +2310,6 @@ document.getElementById('btn-quiz-history').addEventListener('click', () => {
 document.getElementById('btn-quiz-history-close').addEventListener('click', () => {
   quizHistoryOvl.style.display = 'none';
 });
-
-// ── Onboarding-Logik ─────────────────────────────────────────────────────────
-(function() {
-  const OB_KEY = 'tt_onboarded_v1';
-  const overlay = document.getElementById('ob-overlay');
-  const closeBtn = document.getElementById('ob-close');
-  if (!overlay || !closeBtn) return;
-
-  function closeOnboarding() {
-    overlay.classList.add('hidden');
-    try { localStorage.setItem(OB_KEY, '1'); } catch(e) {}
-  }
-
-  // Nur beim allerersten Start anzeigen
-  let seen = false;
-  try { seen = localStorage.getItem(OB_KEY) === '1'; } catch(e) {}
-  if (!seen) {
-    overlay.classList.remove('hidden');
-  }
-
-  closeBtn.addEventListener('click', closeOnboarding);
-  overlay.addEventListener('click', function(e) {
-    if (e.target === overlay) closeOnboarding();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) closeOnboarding();
-  });
-})();
 
 // ── Quiz-Info-Modal ───────────────────────────────────────────────────────────
 (function() {
