@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════════════════════════
+// v1.0.1 — trigger rebuild 2026-07-03T07:22:11Z
    Tonleitertrainer — Service Worker v10
    Strategie:
    - index.html + sw.js: NETWORK-FIRST (immer aktuell)
