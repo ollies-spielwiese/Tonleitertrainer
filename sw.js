@@ -1,11 +1,11 @@
-// v1.0.1 — trigger rebuild 2026-07-03T07:22:11Z
+/* ═══════════════════════════════════════════════════════════
    Tonleitertrainer — Service Worker v10
    Strategie:
    - index.html + sw.js: NETWORK-FIRST (immer aktuell)
    - Alle anderen Assets: Cache-First (schnell + offline)
 ═══════════════════════════════════════════════════════════ */
 
-const CACHE_NAME = 'tonleitertrainer-v22';
+const CACHE_NAME = 'tonleitertrainer-v24';
 
 // Assets die Cache-First behandelt werden (stabile Dateien)
 const CACHE_ASSETS = [
